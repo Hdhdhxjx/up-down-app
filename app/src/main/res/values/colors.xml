@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_bg_primary">#0C0C0C</color>
-    <color name="color_surface">#1E1E1E</color>
-    <color name="color_accent">#F1C40F</color>
-    <color name="color_accent_blue">#2196F3</color>
-    <color name="color_accent_green">#4CAF50</color>
-    <color name="color_accent_purple">#9C27B0</color>
-    <color name="color_accent_red">#F44336</color>
+    <!-- SnapTube Theme Colors -->
+    <color name="color_bg_primary">#0F0F0F</color> <!-- Deep black background -->
+    <color name="color_surface">#1F1F1F</color> <!-- Slightly lighter for cards -->
+    <color name="color_accent">#FAD201</color> <!-- SnapTube Yellow -->
+    
     <color name="color_text_primary">#FFFFFF</color>
-    <color name="color_text_secondary">#9E9E9E</color>
+    <color name="color_text_secondary">#AAAAAA</color>
     <color name="color_accent_text_on">#000000</color>
-    <color name="color_danger">#E53935</color>
+    
+    <color name="color_danger">#FF4444</color>
     <color name="color_gold_elite">#FFD700</color>
-    <color name="color_speed_indicator">#69F0AE</color>
+    <color name="color_speed_indicator">#00E676</color>
+    <color name="color_warning_yellow">#FFC107</color>
+    
+    <color name="color_gradient_start">#1F1F1F</color>
+    <color name="color_gradient_end">#2A2A2A</color>
+    <color name="color_surface_selected">#332900</color> <!-- Yellowish dark tint -->
+    <color name="color_search_bg">#272727</color>
     <color name="color_overlay_black">#99000000</color>
-    <color name="color_warning_yellow">#FFF176</color>
-    <color name="color_gradient_start">#1A1A1A</color>
-    <color name="color_gradient_end">#B8860B</color>
-    <color name="color_surface_selected">#2A2A2A</color>
-    <color name="color_vip_blue_start">#102A43</color>
-    <color name="color_vip_blue_end">#243B53</color>
     <color name="color_transparent">#00000000</color>
     <color name="color_divider">#2A2A2A</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="color_vip_blue_start">#102A43</color>
+    <color name="color_vip_blue_end">#243B53</color>
+    <color name="color_accent_blue">#2196F3</color>
+    <color name="color_accent_green">#4CAF50</color>
+    <color name="color_accent_purple">#9C27B0</color>
+    <color name="color_accent_red">#F44336</color>
 </resources>
