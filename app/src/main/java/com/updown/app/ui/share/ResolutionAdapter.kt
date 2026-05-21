@@ -51,18 +51,24 @@ class ResolutionAdapter : RecyclerView.Adapter<ResolutionAdapter.Holder>() {
         private val labelText = itemView.findViewById<TextView>(R.id.labelText)
         private val sizeText = itemView.findViewById<TextView>(R.id.sizeText)
 
+        private val downloadIcon = itemView.findViewById<android.widget.ImageView>(R.id.downloadIcon)
+
         fun bind(item: ResolutionOption, selected: Boolean) {
             labelText.text = item.label
             sizeText.text = item.sizeText
             val context = itemView.context
-            card.strokeWidth = if (selected) 2.dp(context) else 0
-            card.strokeColor = ContextCompat.getColor(context, R.color.color_accent)
-            card.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    context,
-                    if (selected) R.color.color_surface_selected else R.color.color_surface
-                )
-            )
+            
+            if (selected) {
+                card.strokeColor = ContextCompat.getColor(context, R.color.color_accent)
+                card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_surface_selected))
+                downloadIcon.setColorFilter(ContextCompat.getColor(context, R.color.color_accent))
+                labelText.setTextColor(ContextCompat.getColor(context, R.color.color_accent))
+            } else {
+                card.strokeColor = ContextCompat.getColor(context, R.color.color_divider)
+                card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_surface))
+                downloadIcon.setColorFilter(ContextCompat.getColor(context, R.color.color_text_secondary))
+                labelText.setTextColor(ContextCompat.getColor(context, R.color.color_text_primary))
+            }
         }
 
         private fun Int.dp(context: android.content.Context): Int {
