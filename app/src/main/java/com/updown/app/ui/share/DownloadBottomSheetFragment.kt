@@ -1,9 +1,8 @@
 package com.updown.app.ui.share
 
-import android.os.Bundle
 import android.content.DialogInterface
+import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -16,7 +15,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
 import com.updown.app.R
-import com.updown.app.data.MockRepository
 import com.updown.app.data.ResolutionOption
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -109,13 +107,14 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
                     val parsedFormats = mutableListOf<ResolutionOption>()
 
                     info.formats?.filter { it.vcodec != "none" }?.forEach { format ->
-                        val height = format.height
+                        val height = format.height ?: 0
                         val ext = format.ext ?: "mp4"
-                        val sizeMB = if (format.fileSize > 0)
-                            String.format("%.1f MB", format.fileSize / 1024.0 / 1024.0)
+                        val fileSizeBytes = format.filesize ?: 0L
+                        val sizeMB = if (fileSizeBytes > 0L)
+                            String.format("%.1f MB", fileSizeBytes / 1024.0 / 1024.0)
                         else "—"
                         if (height > 0) {
-                            parsedFormats.add(ResolutionOption("f_${format.formatId}", "${height}p $ext", sizeMB))
+                            parsedFormats.add(ResolutionOption("${height}p $ext", sizeMB))
                         }
                     }
 
