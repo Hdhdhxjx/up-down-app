@@ -34,6 +34,16 @@ jobs:
     - name: Build APK
       run: ./gradlew assembleDebug --stacktrace 2>&1 | tee build_output.txt; exit ${PIPESTATUS[0]}
 
+    - name: Print build error
+      if: failure()
+      run: |
+        echo "::group::Build Output (last 80 lines)"
+        tail -80 build_output.txt || echo "No build_output.txt found"
+        echo "::endgroup::"
+        tail -80 build_output.txt | grep -E "error:|Error:|FAILURE:|e: |> " | head -30 | while IFS= read -r line; do
+          echo "::error::$line"
+        done
+
     - name: Upload build log on failure
       if: failure()
       uses: actions/upload-artifact@v4
