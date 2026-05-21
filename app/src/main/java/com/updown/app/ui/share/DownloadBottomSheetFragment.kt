@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yausername.youtubedl_android.YoutubeDL
-import com.yausername.youtubedl_android.YoutubeDLRequest
 import com.updown.app.R
 import com.updown.app.data.ResolutionOption
 import kotlinx.coroutines.Dispatchers
@@ -95,18 +94,16 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val request = YoutubeDLRequest(link)
-                request.addOption("-J")
-                val info = YoutubeDL.getInstance().getInfo(request)
+                val info = YoutubeDL.getInstance().getInfo(link)
 
                 withContext(Dispatchers.Main) {
                     loadingLayout.visibility = View.GONE
                     titleView.text = info.title ?: "فيديو جاهز للتحميل"
-                    channelView.text = info.uploader ?: ""
+                    channelView.text = ""
 
                     val parsedFormats = mutableListOf<ResolutionOption>()
 
-                    info.formats?.filter { it.vcodec != "none" }?.forEach { format ->
+                    info.formats?.filter { it.vcodec != null && it.vcodec != "none" }?.forEach { format ->
                         val height = format.height ?: 0
                         val ext = format.ext ?: "mp4"
                         val fileSizeBytes = format.filesize ?: 0L
