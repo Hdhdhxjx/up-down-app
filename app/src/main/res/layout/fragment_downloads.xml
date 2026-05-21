@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_primary"
+    android:orientation="vertical"
+    android:layoutDirection="rtl">
+
+    <TextView
+        style="@style/Text.ScreenTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/library" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filterChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAll"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:checked="true"
+            android:text="الكل" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMp4"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:text="MP4" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMp3"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:text="MP3" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip4k"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:text="4K" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/libraryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

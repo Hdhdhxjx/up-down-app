@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.UpDown" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/color_bg_primary</item>
+        <item name="colorPrimary">@color/color_accent</item>
+    </style>
+
+    <style name="Theme.UpDown.Transparent" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/color_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

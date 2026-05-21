@@ -1,0 +1,30 @@
+{
+  "user": {
+    "name": "أحمد حامد",
+    "rank": 16,
+    "points": 1200,
+    "invites": 12
+  },
+  "runningDownloads": [
+    {
+      "title": "وصفة المطبخ التركي الأصيل",
+      "size": "28 MB",
+      "quality": "720p HD",
+      "progress": 75
+    }
+  ],
+  "library": [
+    {
+      "title": "تعلم اللغة التركية",
+      "size": "180 MB",
+      "format": "MP4",
+      "quality": "720p HD",
+      "date": "أمس"
+    }
+  ],
+  "leaderboard": [
+    {"rank": 1, "name": "محمد العمري", "points": 5200, "invites": 52},
+    {"rank": 2, "name": "فاطمة الزهراء", "points": 4800, "invites": 48},
+    {"rank": 3, "name": "خالد المنصور", "points": 4300, "invites": 43}
+  ]
+}

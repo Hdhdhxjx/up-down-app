@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">up down</string>
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_downloads">التنزيلات</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="search_hint">ابحث أو ضع رابط الفيديو هنا...</string>
+    <string name="paste">لصق</string>
+    <string name="manual_link_hint">ضع الرابط هنا للتحليل الفوري</string>
+    <string name="vip_free_title">VIP مجاني لمدة 24 ساعة</string>
+    <string name="vip_free_desc">شاهد إعلاناً واحداً لمدة 30 ثانية لتفعيل المزايا</string>
+    <string name="watch_ad">مشاهدة الإعلان الآن</string>
+    <string name="running_downloads">التنزيلات الجارية</string>
+    <string name="library">مكتبتي</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="start_download">بدء التحميل فائق السرعة</string>
+    <string name="download_mp3">تحميل كملف صوّتي MP3</string>
+    <string name="subscriptions">خطط الاشتراك والترقية</string>
+    <string name="referral_rewards">الدعوة والمكافآت</string>
+    <string name="secret_vault">الخزنة السرية</string>
+    <string name="clipboard_detected">تم رصد رابط في الحافظة - اضغط للتحليل</string>
+</resources>
