@@ -5,9 +5,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_sheet"
     android:orientation="vertical"
-    android:paddingBottom="24dp"
     android:layoutDirection="rtl">
 
+    <!-- Drag Handle -->
     <View
         android:layout_width="40dp"
         android:layout_height="4dp"
@@ -15,10 +15,11 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_drag_handle" />
 
+    <!-- Video Info Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
@@ -28,155 +29,140 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@drawable/bg_platform_circle">
-
             <ImageView
                 android:id="@+id/platformIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_share" />
+                android:src="@drawable/ic_download"
+                app:tint="@color/color_text_secondary" />
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/videoTitleText"
-            style="@style/Text.CardTitle"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:maxLines="2"
-            android:text="تحميل المحتوى" />
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/videoTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="جاري التحقق من الرابط..."
+                android:textColor="@color/color_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/videoChannelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
+    <!-- Media Type Tab Selector: Audio / Video -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabAudio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="صوت"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tabVideo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="فيديو"
+            android:textColor="@color/color_accent_text_on"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_tab_active_indicator" />
+    </LinearLayout>
+
+    <!-- Tab Underline Divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
         android:background="@color/color_divider" />
 
-    <TextView
-        style="@style/Text.CardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="موسيقى (Music)"
-        android:textColor="@color/color_accent" />
-
-    <!-- Pseudo-grid for Audio options -->
+    <!-- Loading indicator -->
     <LinearLayout
+        android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal">
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/audioMp3Card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_divider"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="8dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MP3 128k"
-                    android:textColor="@color/color_text_primary"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3.2 MB"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <ProgressBar
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/color_accent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/audioM4aCard"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_divider"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="8dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="M4A 128k"
-                    android:textColor="@color/color_text_primary"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3.1 MB"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_marginTop="8dp"
+            android:text="جاري التحميل..."
+            android:textColor="@color/color_text_secondary"
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <TextView
-        style="@style/Text.CardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="فيديو (Video)"
-        android:textColor="@color/color_accent" />
-
+    <!-- Format List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/resolutionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginTop="4dp"
+        android:nestedScrollingEnabled="false" />
 
+    <!-- Download Button (SnapTube style: full-width yellow) -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startDownloadButton"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/start_download"
         android:textColor="@color/color_accent_text_on"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:backgroundTint="@color/color_accent"
-        app:cornerRadius="14dp"
-        app:icon="@android:drawable/stat_sys_download_done"
-        app:iconTint="@color/color_accent_text_on" />
+        app:cornerRadius="26dp" />
 
+    <!-- MP3 / Audio quick button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mp3DownloadButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/download_mp3"
         android:textColor="@color/color_text_primary"
+        android:textSize="14sp"
         app:backgroundTint="@color/color_surface"
-        app:cornerRadius="14dp"
+        app:cornerRadius="24dp"
         app:strokeColor="@color/color_divider"
         app:strokeWidth="1dp" />
 

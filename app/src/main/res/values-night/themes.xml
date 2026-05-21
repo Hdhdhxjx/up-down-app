@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.UpDown" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.UpDown" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/color_bg_primary</item>
         <item name="colorPrimary">@color/color_accent</item>
+        <item name="colorOnPrimary">@color/color_accent_text_on</item>
+        <item name="colorSurface">@color/color_bg_primary</item>
+        <item name="colorOnSurface">@color/color_text_primary</item>
+        <item name="android:statusBarColor">@color/color_bg_primary</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.UpDown.Transparent" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.UpDown.Transparent" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/color_transparent</item>
         <item name="android:windowNoTitle">true</item>

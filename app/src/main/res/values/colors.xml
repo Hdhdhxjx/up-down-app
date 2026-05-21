@@ -1,32 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- SnapTube Theme Colors -->
-    <color name="color_bg_primary">#0F0F0F</color> <!-- Deep black background -->
-    <color name="color_surface">#1F1F1F</color> <!-- Slightly lighter for cards -->
-    <color name="color_accent">#FAD201</color> <!-- SnapTube Yellow -->
-    
-    <color name="color_text_primary">#FFFFFF</color>
-    <color name="color_text_secondary">#AAAAAA</color>
-    <color name="color_accent_text_on">#000000</color>
-    
-    <color name="color_danger">#FF4444</color>
-    <color name="color_gold_elite">#FFD700</color>
-    <color name="color_speed_indicator">#00E676</color>
-    <color name="color_warning_yellow">#FFC107</color>
-    
-    <color name="color_gradient_start">#1F1F1F</color>
-    <color name="color_gradient_end">#2A2A2A</color>
-    <color name="color_surface_selected">#332900</color> <!-- Yellowish dark tint -->
-    <color name="color_search_bg">#272727</color>
+    <!-- SnapTube v5 Light Theme - extracted from APK com.snaptube.premium 7.59.0 -->
+
+    <!-- v5 Main Scale: 1=darkest text → 6=white background -->
+    <color name="v5_main_1">#FF333333</color>
+    <color name="v5_main_2">#FF888888</color>
+    <color name="v5_main_3">#FFB2B2B2</color>
+    <color name="v5_main_4">#FFEFEFEF</color>
+    <color name="v5_main_5">#FFF4F4F4</color>
+    <color name="v5_main_6">#FFFFFFFF</color>
+
+    <!-- v5 Accent Scale -->
+    <color name="v5_accent_1">#FFFFCD22</color>
+    <color name="v5_accent_1_pressed">#FFF5C009</color>
+    <color name="v5_accent_2">#FFFFA100</color>
+    <color name="v5_accent_3">#FFFF4949</color>
+    <color name="v5_accent_5">#FF3E8BFF</color>
+
+    <!-- Semantic aliases matching SnapTube naming -->
+    <color name="color_bg_primary">@color/v5_main_6</color>
+    <color name="color_surface">@color/v5_main_5</color>
+    <color name="color_accent">@color/v5_accent_1</color>
+    <color name="color_accent_pressed">@color/v5_accent_1_pressed</color>
+    <color name="color_text_primary">@color/v5_main_1</color>
+    <color name="color_text_secondary">@color/v5_main_2</color>
+    <color name="color_text_weak">@color/v5_main_3</color>
+    <color name="color_divider">@color/v5_main_4</color>
+    <color name="color_accent_text_on">#FF333333</color>
+    <color name="color_search_bg">@color/v5_main_6</color>
+    <color name="color_surface_selected">#1FFFFCD2</color>
     <color name="color_overlay_black">#99000000</color>
     <color name="color_transparent">#00000000</color>
-    <color name="color_divider">#2A2A2A</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="color_vip_blue_start">#102A43</color>
-    <color name="color_vip_blue_end">#243B53</color>
-    <color name="color_accent_blue">#2196F3</color>
-    <color name="color_accent_green">#4CAF50</color>
-    <color name="color_accent_purple">#9C27B0</color>
-    <color name="color_accent_red">#F44336</color>
+
+    <!-- Extra accent colors -->
+    <color name="color_danger">@color/v5_accent_3</color>
+    <color name="color_blue">@color/v5_accent_5</color>
+    <color name="color_orange">@color/v5_accent_2</color>
+    <color name="color_gold_elite">@color/v5_accent_1</color>
+    <color name="color_speed_indicator">#FF33C585</color>
+    <color name="color_warning_yellow">@color/v5_accent_2</color>
+    <color name="color_accent_blue">@color/v5_accent_5</color>
+    <color name="color_accent_green">#FF33C585</color>
+    <color name="color_accent_purple">#FF9C27B0</color>
+    <color name="color_accent_red">@color/v5_accent_3</color>
+
+    <!-- VIP card gradient -->
+    <color name="color_vip_yellow_start">@color/v5_accent_1</color>
+    <color name="color_vip_yellow_end">@color/v5_accent_2</color>
+    <color name="color_vip_blue_start">#FF102A43</color>
+    <color name="color_vip_blue_end">#FF243B53</color>
+
+    <!-- Gradient helpers -->
+    <color name="color_gradient_start">@color/v5_main_5</color>
+    <color name="color_gradient_end">@color/v5_main_4</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

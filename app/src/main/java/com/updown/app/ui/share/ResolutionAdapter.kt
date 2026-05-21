@@ -3,6 +3,7 @@ package com.updown.app.ui.share
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -50,29 +51,31 @@ class ResolutionAdapter : RecyclerView.Adapter<ResolutionAdapter.Holder>() {
         private val card = itemView as MaterialCardView
         private val labelText = itemView.findViewById<TextView>(R.id.labelText)
         private val sizeText = itemView.findViewById<TextView>(R.id.sizeText)
-
+        private val infoText = itemView.findViewById<TextView>(R.id.infoText)
         private val downloadIcon = itemView.findViewById<android.widget.ImageView>(R.id.downloadIcon)
+        private val checkIcon = itemView.findViewById<android.widget.ImageView>(R.id.checkIcon)
 
         fun bind(item: ResolutionOption, selected: Boolean) {
             labelText.text = item.label
             sizeText.text = item.sizeText
+            infoText.text = item.label
+            infoText.visibility = View.GONE
             val context = itemView.context
-            
+
             if (selected) {
-                card.strokeColor = ContextCompat.getColor(context, R.color.color_accent)
                 card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_surface_selected))
                 downloadIcon.setColorFilter(ContextCompat.getColor(context, R.color.color_accent))
                 labelText.setTextColor(ContextCompat.getColor(context, R.color.color_accent))
+                sizeText.setTextColor(ContextCompat.getColor(context, R.color.color_accent))
+                checkIcon.visibility = View.VISIBLE
+                checkIcon.setImageResource(android.R.drawable.checkbox_on_background)
             } else {
-                card.strokeColor = ContextCompat.getColor(context, R.color.color_divider)
-                card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_surface))
+                card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.color_bg_primary))
                 downloadIcon.setColorFilter(ContextCompat.getColor(context, R.color.color_text_secondary))
                 labelText.setTextColor(ContextCompat.getColor(context, R.color.color_text_primary))
+                sizeText.setTextColor(ContextCompat.getColor(context, R.color.color_text_secondary))
+                checkIcon.visibility = View.GONE
             }
-        }
-
-        private fun Int.dp(context: android.content.Context): Int {
-            return (this * context.resources.displayMetrics.density).toInt()
         }
     }
 }

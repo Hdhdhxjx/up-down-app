@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.content.DialogInterface
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yausername.youtubedl_android.YoutubeDL
@@ -42,28 +44,41 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
         super.onViewCreated(view, savedInstanceState)
 
         val link = arguments?.getString(ARG_LINK).orEmpty()
-        val title = view.findViewById<TextView>(R.id.videoTitleText)
-        val icon = view.findViewById<ImageView>(R.id.platformIcon)
+        val titleView = view.findViewById<TextView>(R.id.videoTitleText)
+        val channelView = view.findViewById<TextView>(R.id.videoChannelText)
+        val loadingLayout = view.findViewById<LinearLayout>(R.id.loadingLayout)
         val recycler = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.resolutionRecyclerView)
-        
-        recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+        val tabVideo = view.findViewById<TextView>(R.id.tabVideo)
+        val tabAudio = view.findViewById<TextView>(R.id.tabAudio)
+
+        recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = adapter
 
-        // Initial Loading state
-        title.text = "جاري جلب معلومات الرابط..."
-        
-        fetchVideoInfo(link, title)
+        loadingLayout.visibility = View.VISIBLE
+        titleView.text = "جاري جلب معلومات الرابط..."
 
-        icon.setImageResource(android.R.drawable.ic_menu_share)
+        tabVideo.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_accent))
+        tabAudio.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_text_secondary))
+
+        tabVideo.setOnClickListener {
+            tabVideo.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_accent))
+            tabAudio.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_text_secondary))
+        }
+        tabAudio.setOnClickListener {
+            tabAudio.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_accent))
+            tabVideo.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_text_secondary))
+            adapter.selectByLabel("MP3 صوت فقط")
+        }
+
+        fetchVideoInfo(link, titleView, channelView, loadingLayout)
 
         view.findViewById<com.google.android.material.button.MaterialButton>(R.id.startDownloadButton).setOnClickListener {
             val selectedFormat = adapter.selectedLabel()
-            if (selectedFormat.isBlank()) {
+            if (selectedFormat.isBlank() || selectedFormat == "غير محدد") {
                 Toast.makeText(requireContext(), "الرجاء اختيار جودة أولاً", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            Toast.makeText(requireContext(), "بدء التحميل الحقيقي: $selectedFormat", Toast.LENGTH_SHORT).show()
-            // Here we will run the actual YoutubeDLRequest in the next iteration
+            Toast.makeText(requireContext(), "بدء التحميل: $selectedFormat", Toast.LENGTH_SHORT).show()
             dismiss()
         }
 
@@ -74,29 +89,39 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
             }
     }
 
-    private fun fetchVideoInfo(link: String, titleView: TextView) {
+    private fun fetchVideoInfo(
+        link: String,
+        titleView: TextView,
+        channelView: TextView,
+        loadingLayout: LinearLayout
+    ) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val request = YoutubeDLRequest(link)
-                request.addOption("-J") // get JSON info
+                request.addOption("-J")
                 val info = YoutubeDL.getInstance().getInfo(request)
 
                 withContext(Dispatchers.Main) {
+                    loadingLayout.visibility = View.GONE
                     titleView.text = info.title ?: "فيديو جاهز للتحميل"
-                    
+                    channelView.text = info.uploader ?: ""
+
                     val parsedFormats = mutableListOf<ResolutionOption>()
-                    
+
                     info.formats?.filter { it.vcodec != "none" }?.forEach { format ->
                         val height = format.height
                         val ext = format.ext ?: "mp4"
-                        val sizeMB = if (format.fileSize > 0) String.format("%.1f MB", format.fileSize / 1024.0 / 1024.0) else "حجم غير معروف"
+                        val sizeMB = if (format.fileSize > 0)
+                            String.format("%.1f MB", format.fileSize / 1024.0 / 1024.0)
+                        else "—"
                         if (height > 0) {
                             parsedFormats.add(ResolutionOption("f_${format.formatId}", "${height}p $ext", sizeMB))
                         }
                     }
 
-                    // Remove duplicates by label (keeping best)
-                    val uniqueFormats = parsedFormats.distinctBy { it.label }.sortedByDescending { it.label.substringBefore("p").toIntOrNull() ?: 0 }
+                    val uniqueFormats = parsedFormats
+                        .distinctBy { it.label }
+                        .sortedByDescending { it.label.substringBefore("p").toIntOrNull() ?: 0 }
 
                     adapter.submitList(uniqueFormats)
                     if (uniqueFormats.isNotEmpty()) {
@@ -107,6 +132,7 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
+                    loadingLayout.visibility = View.GONE
                     titleView.text = "فشل في استخراج الرابط"
                     Toast.makeText(requireContext(), "عذراً: ${e.message}", Toast.LENGTH_LONG).show()
                 }
