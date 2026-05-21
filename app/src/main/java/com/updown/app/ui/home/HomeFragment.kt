@@ -13,71 +13,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.updown.app.R
-import com.updown.app.data.MockRepository
 import com.updown.app.ui.main.MainNavigator
 import com.updown.app.ui.share.DownloadBottomSheetFragment
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val adapter = RunningDownloadAdapter()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val searchEdit = view.findViewById<EditText>(R.id.searchEditText)
-        val manualLinkEdit = view.findViewById<EditText>(R.id.manualLinkEditText)
-        val pasteButton = view.findViewById<MaterialButton>(R.id.pasteButton)
-        val watchAdButton = view.findViewById<MaterialButton>(R.id.watchAdButton)
-        val clipboardBanner = view.findViewById<TextView>(R.id.clipboardBanner)
         val avatar = view.findViewById<ShapeableImageView>(R.id.topAvatar)
-        val recycler = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.runningRecyclerView)
-
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = adapter
-        adapter.submitList(MockRepository.runningDownloads.toList())
+        val watchAdButton = view.findViewById<MaterialButton>(R.id.watchAdButton)
 
         avatar.setOnClickListener {
             (activity as? MainNavigator)?.openSettingsTab()
         }
 
         watchAdButton.setOnClickListener {
-            Toast.makeText(requireContext(), "تم تفعيل VIP لمدة 24 ساعة (محاكاة)", Toast.LENGTH_SHORT).show()
-        }
-
-        pasteButton.setOnClickListener {
-            val clipText = readClipboardText()
-            if (clipText.isNullOrBlank()) {
-                Toast.makeText(requireContext(), "الحافظة فارغة", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            manualLinkEdit.setText(clipText)
-            showDownloadSheet(clipText)
-        }
-
-        manualLinkEdit.setOnEditorActionListener { _, _, _ ->
-            val text = manualLinkEdit.text?.toString().orEmpty()
-            if (text.startsWith("http")) {
-                showDownloadSheet(text)
-                true
-            } else {
-                false
-            }
-        }
-
-        val clipboardText = readClipboardText().orEmpty()
-        val hasLink = clipboardText.startsWith("http")
-        clipboardBanner.visibility = if (hasLink) View.VISIBLE else View.GONE
-        clipboardBanner.setOnClickListener {
-            manualLinkEdit.setText(clipboardText)
-            showDownloadSheet(clipboardText)
-        }
-
-        searchEdit.setOnEditorActionListener { _, _, _ ->
-            val text = searchEdit.text?.toString().orEmpty()
-            if (text.startsWith("http")) {
-                showDownloadSheet(text)
-                true
-            } else false
+            Toast.makeText(requireContext(), "جاري تحميل الإعلان...", Toast.LENGTH_SHORT).show()
         }
     }
 
