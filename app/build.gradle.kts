@@ -56,4 +56,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("io.coil-kt:coil:2.7.0")
+    
+    // The Real Download Engine (Same core used by top downloaders)
+    implementation("com.github.yausername.youtubedl-android:library:0.17.0")
+    implementation("com.github.yausername.youtubedl-android:ffmpeg:0.17.0")
 }
