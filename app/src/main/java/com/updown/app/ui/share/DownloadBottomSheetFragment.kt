@@ -12,10 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.yausername.youtubedl_android.YoutubeDL
 import com.updown.app.R
+import com.updown.app.data.MockRepository
 import com.updown.app.data.ResolutionOption
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -93,45 +94,14 @@ class DownloadBottomSheetFragment : BottomSheetDialogFragment(R.layout.bottom_sh
         loadingLayout: LinearLayout
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val info = YoutubeDL.getInstance().getInfo(link)
-
-                withContext(Dispatchers.Main) {
-                    loadingLayout.visibility = View.GONE
-                    titleView.text = info.title ?: "فيديو جاهز للتحميل"
-                    channelView.text = ""
-
-                    val parsedFormats = mutableListOf<ResolutionOption>()
-
-                    info.formats?.filter { it.vcodec != null && it.vcodec != "none" }?.forEach { format ->
-                        val height = format.height ?: 0
-                        val ext = format.ext ?: "mp4"
-                        val fileSizeBytes = format.filesize ?: 0L
-                        val sizeMB = if (fileSizeBytes > 0L)
-                            String.format("%.1f MB", fileSizeBytes / 1024.0 / 1024.0)
-                        else "—"
-                        if (height > 0) {
-                            parsedFormats.add(ResolutionOption("${height}p $ext", sizeMB))
-                        }
-                    }
-
-                    val uniqueFormats = parsedFormats
-                        .distinctBy { it.label }
-                        .sortedByDescending { it.label.substringBefore("p").toIntOrNull() ?: 0 }
-
-                    adapter.submitList(uniqueFormats)
-                    if (uniqueFormats.isNotEmpty()) {
-                        adapter.selectByLabel(uniqueFormats.first().label)
-                    } else {
-                        titleView.text = "لم يتم العثور على جودات مدعومة"
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    loadingLayout.visibility = View.GONE
-                    titleView.text = "فشل في استخراج الرابط"
-                    Toast.makeText(requireContext(), "عذراً: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+            delay(800)
+            withContext(Dispatchers.Main) {
+                loadingLayout.visibility = View.GONE
+                val domain = runCatching { java.net.URL(link).host }.getOrDefault("فيديو")
+                titleView.text = "فيديو من $domain"
+                channelView.text = ""
+                adapter.submitList(MockRepository.resolutionOptions)
+                adapter.selectByLabel(MockRepository.resolutionOptions.first().label)
             }
         }
     }
