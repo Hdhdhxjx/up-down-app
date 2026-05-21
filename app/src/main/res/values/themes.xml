@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.UpDown" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="android:windowBackground">@color/color_bg_primary</item>
         <item name="colorPrimary">@color/color_accent</item>
-        <item name="colorOnPrimary">@color/color_accent_text_on</item>
         <item name="colorSecondary">@color/color_accent</item>
-        <item name="android:textColorPrimary">@color/color_text_primary</item>
-        <item name="android:textColorSecondary">@color/color_text_secondary</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_text_primary</item>
+        <item name="android:colorBackground">@color/color_bg_primary</item>
+        <item name="android:statusBarColor">@color/color_bg_primary</item>
+        <item name="android:navigationBarColor">@color/color_surface</item>
+        <item name="fontFamily">@font/cairo</item>
+        <item name="android:fontFamily">@font/cairo</item>
         <item name="android:layoutDirection">rtl</item>
     </style>
 
